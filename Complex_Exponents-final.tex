@@ -1,0 +1,298 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+
+%SetFonts
+
+%SetFonts
+
+
+\title{Complex Exponents, or, What Does $x^i$ Even Mean, Anyway?}
+\author{Wesley Nuzzo}
+%\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+One of the most popular topics for math explainers is the famous Euler's formula, \(e^{\pi i}=-1\).
+I know I've seen many videos on this topic, and while they've all been interesting, somehow there's something about this formula that still remains mysterious.
+
+Euler's formula is very surprising to people who see it for the first time. How is it that two irrational numbers and the square root of negative one combine to give us a negative integer? And what does it even mean to raise a real number to the power of an imaginary number?
+
+While I think many of the videos I've seen address the first question very well, I think the lack of a satisfactory answer to the second question is a big part of what makes this topic still so confusing. 
+
+The most common approach used by explainers covering this topic is to use the following definition:
+\[e^x=\exp(x)=1+x+\frac{x^2}{2}+\frac{x^3}{3} + \cdots + \frac{x^n}{n!} + \cdots\]
+
+We then show that we can substitute $\theta i$ for $x$ in the above definition, and as $\theta$ gets closer to $\pi$, the value of $e^{\theta i}$ gets closer to $-1$. 
+
+This is very elegant in the eyes of an experienced mathematician: these kinds of power series show up all over the place when talking about analytic functions, and perhaps after a certain point this power series really is what you think of when you see the expression $e^x$. 
+
+The problem is that this explanation is entirely unintuitive to everyone else.
+
+My goal in this article, then, is to give an intuitive answer to the question, ``what does it mean to raise a number to the power of an imaginary number?''. This is not necessarily intended to be a complete definition, but the goal is to build off an understanding of how exponents work for real numbers in order to get an understanding of how, and why, exponentiation works on imaginary numbers.
+
+%%%%
+% Section 1: Real Numbers
+\section{Exponentiation on the real numbers}
+
+Let's start by reminding ourselves how exponentiation works on the real numbers.
+
+The way exponentiation is normally taught when we first see it is as repeated multiplication, similar to how multiplication is repeated addition. In other words,
+\[x^n = \prod_{k=1}^{n}x = xx\cdots x\]
+where that last expression is $x$ repeated $n$ times.
+
+Thus, \(x^1 = x\), \(x^2=xx\), \(x^3=xxx\), and so on. If we recognize the empty product \((*)=1\), then have \(x^0 = (*) = 1\) as well.
+
+This understanding works fine when $n$ is a positive integer, but it doesn't work for exponents that are negative, or fractions, or irrational numbers.
+
+We can extend this definition to work for all real numbers by trying to do so in a way that preserves certain defining properties, but what's particularly interesting is that doing so continues to fit this intuitive notion of ``repeated multiplication''.
+
+\subsection{Properties of exponentiation}
+
+The most important property we want to preserve is this one: \[x^{n+m} = x^nx^m\]
+
+We can see this property holds for integer $n$ and $m$ by realizing that if we write $x$ $n$ times and then multiply it by $x$ written $m$ times, we get $x$ written $n+m$ times. Alternatively, using product notation: \[x^nx^m = \prod_{k=1}^{n}x \prod_{k=1}^{m}x = \prod_{k=1}^{n}x \prod_{k=n}^{n+m}x = \prod_{k=1}^{n+m}x = x^{n+m}\]
+
+From this property, we can prove another useful property: \[x^{nm} = (x^n)^m\]
+
+Proof:
+\[(x^n)^m = x^nx^n\cdots x^n = x^{n+n+n+\cdots+n} = x^{mn}\]
+
+These properties will be enough for us to extend to the negative numbers and the rational numbers.
+
+\subsection{Extending to Negative and Fractional Exponents}
+
+Let's see what it looks like to extend the definition while preserving these properties. 
+
+We'll start with fractions. Given a fraction $r=\frac{a}{b}$, where $a$ is the numerator and $b$ is the denominator (and therefore both are integers):
+
+If $a=1$, then $r=\frac{1}{b}$ and therefore \[x^{rb} = x^{\frac{1}{b}b}=x^1=x\]
+\[x^{rb}=x\]
+\[(x^r)^b=x\]
+\[x^r=\sqrt[b]{x}\]
+
+Note that this result makes intuitive sense: for example with $b=2$, if multiplying by $x$ ``half of a time'' twice gives you $x$, then doing so only once gives you a number which, multiplied by itself twice, is $x$.
+
+
+For general $a$, we have 
+\[x^{\frac{a}{b}}=x^{a\frac{1}{b}}=(x^a)^\frac{1}{b}=\sqrt[b]{x^a}\]
+
+Now for negative exponents.
+
+Given any negative exponent $r$, there is a positive number $p$ such that $r=-p$. Thus,
+\[x^rx^p=x^{-p}x^p=x^{p-p}=x^0=1\]
+\[x^rx^p=1\]
+\[x^r=\frac{1}{x^p}\]
+
+Again, this makes intuitive sense: if the opposite of multiplication is division, then multiplying a negative amount of times means undoing those multiplications, i.e. dividing.
+
+\subsection{regarding irrational numbers}
+
+I'm not actually going to try to show how its possible to extend this definition to include irrational numbers, as its rather complicated. However, there are a couple things I want to point out about them. 
+
+First, it turns out that in extending to the irrational numbers, trying to just preserve the property $x^yx^z=x^{y+z}$ is not enough. We need another constraint, such as continuity.
+
+As for the intuition, it's easy enough: suppose for example we want $x^\pi$. We can start by getting $x^3$, and then $x^{3.1}$. As we add more digits of $\pi$, our value of $x^r$ (where $r$ is our fraction approximating $\pi$) will get closer and closer to a single value. That value is the $x^\pi$.
+
+\subsection{Choice of base and codomain}
+We talked a lot about the effect that the exponent has in the expression $x^y$, but we haven't talked a lot about the base. I'm going to try to discuss that topic a bit here, because we're its going to be relevant when we get to the complex numbers.
+
+More importantly, I want to take a moment to take a step back and look at what exponentiation actually \emph{does}.
+
+Let's start with a base $x>1$. Raising $x$ to a positive power gives us ever larger multiples of $x$, and of course these values grow exponentially. These values are not bounded above by any number.
+Using a negative power gives us progressively smaller values, the reciprocals of $x^y$ for the positive values. No matter how large $y$ we choose though, $x^y>0$.
+
+In other words, the expression $x^y$ here maps the values of $y$ from the real numbers to the interval $(0,\infty)$, which is a subset of the real numbers.
+
+Now consider the effects of choosing a larger $x$. The values of $x^y$ will of course be larger for every positive $y$, but for negative $y$, $x^y$ will be smaller for a larger $x$ than a smaller $x$, because it is the reciprocal of a larger number. In other words, a larger $x$ seems to stretch $x^y$ to values further away from $1$.
+
+If we choose a base $x$ from the interval $(0,1)$. We get the opposite results. Larger exponents and smaller values of $x$ give bigger numbers when the exponent is positive, and smaller numbers when the exponent is negative. More precisely, $x^y$ has exactly the same effect as $\frac{1}{x}^{-y}$.
+So the base $x$ works the same as its reciprocal, it just flips the results around $1$, while keeping that same codomain of $(0,\infty)$.
+
+There's one more important thing I need to cover. What if the base is negative?
+
+For integer exponents, we already get something strange. $(-1)^n$ gives a positive value if $n$ is even, but it gives a negative value for odd $n$. You'll notice we've already left our previously established codomain of $(0,\infty)$, and we haven't even replaced it with what we might expect, namely $(-\infty,0)$.
+
+In case you doubt that we've irrevocably left behind the domain we were just exploring with real bases, look no further than what happens when we try to find $(-1)^\frac{1}{2}$.
+From our rules earlier \[(-1)^\frac{1}{2} = \sqrt{-1} = i\]
+
+We've left the real numbers entirely!
+To continue exploring this journey the base $-1$ is taking us on, we'll have to leave behind the dimension of the real number line, and enter the complex plane.
+
+%%%%
+% Section 2: Complex Numbers
+\section{The Complex Numbers}
+
+So what are the complex numbers? 
+
+The easiest way to describe complex numbers is to say that complex numbers are numbers that take the form of $a+b\sqrt{-1}$, which we write more simply using the constant $i=\sqrt{-1}$, so that they take the form $a+bi$.
+We call $a$ the real part and $b$ the imaginary part.
+
+Addition and multiplication work as follows:
+$$(a+bi) + (c+di) = (a+c) + (b+d)i$$
+$$(a+bi) * (c+di) = ac + adi + bci + (-1)bd= (ac-bd) + (ad+cb)i$$
+
+Absolute value is defined as follows:
+$$|a+bi| = \sqrt{a^2+b^2}$$
+Note that $\frac{a+bi}{|a+bi|}$ gives a number that has the same angle as $a+bi$ and an absolute value of $1$. 
+
+We also have an operator called the complex conjugate, which flips the number over the real axis:
+$$\overline{a+bi} = a-bi$$
+
+\subsection{multiplying complex numbers}
+Let's take a closer look at how multiplying complex numbers works.
+
+Multiplying complex numbers consists of a scale operation and a rotation.
+To show what I mean, let's look at what happens to the absolute values of complex products.
+
+Suppose we have two complex numbers, $z=a+bi$ and $w=c+di$.
+Then \[|zw| = |(a+bi)(c+di)| = |(ac-bd) + (ad+bc)i| = \sqrt{(ac-bd)^2 + (ad+bc)^2}\]
+ \[=\sqrt{(ac)^2 - 2acbd + (bd)^2  + (ad)^2 + 2acbd + (bc)^2} = \sqrt{(ac)^2+(bc)^2+(cd)^2+(bd)^2}\]
+ But we also have,
+ \[|z||w|=|a+bi||c+di|=\sqrt{a^2+b^2}\sqrt{c^2+d^2}=\sqrt{(a^2+b^2)(c^2+d^2)}=\sqrt{(ac)^2+(bc)^2+(cd)^2+(bd)^2}\]
+ Meaning\[|zw|=|z||w|\]
+
+So the absolute value of the product is the product of the absolute values. This is what I mean by a scaling operation.
+
+For the rotation, notice that if \(|zw|=|z||w|\), then
+\[\frac{zw}{|zw|}=\frac{zw}{|z||w|}=\frac{z}{|z|}\frac{w}{|w|}\]
+
+Which is the product of two numbers with absolute value of 1 (notice that the set of all numbers with absolute value 1 is a unit circle centered on 0). If you visually look at what happens when you add these two numbers together, you see that it consists of adding the angles the two make with the origin to the get the angle for the product.
+
+Thus the entire product, \(zw\), is the product of both these products, or \[zw=|zw|\frac{zw}{|zw|}=|z||w|\frac{z}{|z|}\frac{w}{|w|}\]
+which is a scaling operation followed by a rotation operation.
+
+\subsection{Complex numbers to real powers}
+Let's get back to question of what we happens when we try to find $(-1)^y$.
+
+It may not seem like it, but understanding this is going to be key to understanding what happens when we have imaginary numbers in the exponent.
+
+Since we already know what happens with integer exponents, let's focus on exponents between $0$ and $1$.
+
+One small problem that we have with trying to find $(-1)^\frac{1}{n}$ is that there are potentially multiple candidates for $\sqrt[n]{x}$ on the complex plane. For example $(-i)^2=-1$ makes $-i$ a valid candidate for the square root of $-1$. In general, there are $n$ possible candidates for $\sqrt[n]{x}$. We'll resolve this ambiguity by choosing the one that has the least counterclockwise rotation from the positive real numbers. (Note that this rule also resolves the potential ambiguity around $(-1)^2=1$ making $-1$ a possible candidate for the square root of $1$.)
+
+Here's what we have so far:
+\[(-1)^1 = -1\]
+\[(-1)^\frac{1}{2} = i\]
+\[(-1)^0 = 1\]
+\[(-1)^2 = 1\]
+\[(-1)^\frac{3}{2} = i^3=-i\]
+
+Notice anything? For every value of $y$ here, $(-1)^y$ has an absolute value of $1$.
+
+It turns out that this holds for any (real) value of $y$, and $-1$ is not unique in this regard. For any base $z$ in the complex plane (besides zero), $|z^y|=|z|^y$.
+
+\subsubsection{Theorem: $|z^y|=|z|^y$ for all real $y$}
+(Where $z$ is a nonzero complex number.)
+
+I'll only prove this for rational $y$, but it holds for irrational values of $y$ as well.
+
+First, let's prove that for any natural number $n$, $|z^n|=|z|^n$.
+We'll do so inductively. The base case is $n=0$, $|z^0|=|z|^0=1$.
+For the inductive step: suppose that for all $y<n$, $|z^y|=|z|^y$. Then \(|z^n|=|zz^{n-1}|=|z||z^{n-1}|=|z||z|^{n-1}=|z|^n\).
+
+Now consider the reciprocals of the natural numbers. Since \(z^\frac{1}{n}=\sqrt[n]z\), we can show 
+\(|z^\frac{1}{n}|^n = |\sqrt[n]z|^n=|\sqrt[n]z^n|=|z|\), therefore \(|z^\frac{1}{n}|^n=|z|\), \(|z^\frac{1}{n}|=\sqrt[n]{|z|}=|z|^\frac{1}{n}\)
+
+And for negative exponents: \(z^{-1} = \frac{1}{z}\). Since \(z\frac{1}{z}=1\), and \(|z\frac{1}{z}|=|z||\frac{1}{z}|\), we have \(|z||\frac{1}{z}|=1\) and therefore \(|\frac{1}{z}|=\frac{1}{|z|}\).
+Then \(|z^{-1}|=|\frac{1}{z}|=\frac{1}{|z|}=|z|^{-1}\)
+
+For all other negative integers, $|z^{-n}|=|z^{-1}z^n|=|z^{-1}||z^n|=|z|^{-1}|z|^n=|z|^{-n}$.
+
+Now, to put it all together: suppose $y$ is a rational number. Then $y=\frac{a}{b}$ for some natural number $a$ and positive natural number $b$. Therefore \(|z^y|=|z^\frac{a}{b}|=|(z^\frac{1}{b})^a|=|z^{\frac{1}{b}}|^a=(|z|^\frac{1}{b})^a=|z|^\frac{a}{b}=|z|^y\) 
+
+QED
+
+\subsubsection{Consequences of this theorem}
+
+First of all this means that not just $-1$ but any complex number with an absolute value of $1$ is locked on the unit circle when it comes to exponentiation by real numbers.
+
+Notice the significance of that. When our base was a real number in the interval $(0,\infty)$, $x^y$ mapped real values of $y$ to the interval $(0, \infty)$. Now, when our base is a member of $\{z \mid z\in\mathbb{C} \land |z|=1\}$, it maps real values of $y$ to $\{z \mid z\in\mathbb{C} \land |z|=1\}$.
+
+Notice as well that if the base is a positive real number, exponentiation results in a pure scaling operation (same as multiplying by a real number), while if the base has absolute value $1$, exponentiation results in a pure rotation (again, same as multiplying by such a base).
+
+For values not on this unit circle or part of the positive real numbers, exponentiation gives a mix of these two effects.
+
+We can write exponentiation on the general complex numbers like this:
+\[z^y = (|z|\frac{z}{|z|})^y = |z|^y(\frac{z}{|z|})^y\]
+
+The first part, $|z|^y$, gives the absolute value of the result, while the second, $(\frac{z}{|z|})^y$, gives the angle.
+
+For any base $z$, there is a set $\{w|w\in\mathbb{C}\land \exists y\in\mathbb{R}:w=z^y\}$. The shape of this set is a logarithmic spiral, since the angle of each point is linearly proportional to $y$, while the absolute value is an exponential function of $y$, namely $|z|^y$.
+
+I would like to say for every set of this nature, $w^y$ maps to the same set for any $w$ in that set, but that's not entirely true. It has to do with the way we define $n$-th roots, which affects how $w^\frac{1}{n}$ is defined. Since we said that the true $n$-th root was the first one we encountered going counterclockwise, we now have that $w^y$ maps to the same log spiral defined by $z^y$ if and only if $w$ is encountered on the first counterclockwise rotation, starting from $1$, along the spiral for $z^y$. (Note that $1$ is always part of that spiral because $z^0=1$)
+
+(I'll also just note here that there's a way to use something called Riemann surfaces to solve this problem, but I won't go into how that works.)
+
+\subsection{Imaginary and complex powers}
+
+Now for the topic we've all been waiting for.
+
+We want to extend our definition of exponents to include not just real exponents, but imaginary and complex exponents as well. Remember that we want to do so in a way that preserves the property \(z^{w+y}=z^wz^y\).
+
+Let's start by just focusing on imaginary exponents. Since complex numbers are of the form $a+bi$, and imaginary numbers are just complex numbers where that $a$ equals $0$, imaginary numbers are the form $bi$, where $b$ is a real number.
+Then, if $w$ is an imaginary number, \[z^w=z^{bi}\] for some real $b$.
+
+In that case, we can use the property \(z^{wy}=(z^w)^y\), which follows from the property we're trying to preserve (technically we've only proved this for integer $y$, but we can easily extend it for real $y$, which is all we need for this next part).
+We now have \[z^w=(z^i)^b\] 
+
+The significance of this may not be immediately obvious, but notice that since $z^i$ is a complex number and $b$ is a real number, we now have a complex number to the power of a real number. Since we just saw that this maps values of $b$ to either a logarithmic spiral, the positive real numbers, or the unit circle, we now have a much better idea of what \(z^{bi}\) should look like.
+
+\subsubsection{conformal maps}
+
+So let's go back to thinking about a base $x$, where $x$ is a positive real number. We've already shown that the expression $x^y$ maps real values of $y$ to the interval \((0,\infty)\). Now we see that the same expression must map imaginary values of $y$ either to some logarithmic spiral, or to the unit circle.
+
+It turns out that the property from before, \(z^{w+y}=z^wz^y\), is not enough of on its own determine which it is. Much like extending to the real numbers, extending to the complex numbers requires adding an additional property.
+
+By this point I hope it's intuitively obvious that $x^i$ should be somewhere on the unit circle. Besides the very suggestive fact that it is the only option besides the positive real numbers which isn't a logarithmic spiral, there's also its symmetry over the real axis (which also preserves some nice properties about complex conjugates of exponents).
+
+There are a couple properties that I could chose that would give me the result that I want, but I think the one that lends itself best to intuition is that $f(y)=x^y$ must be a conformal mapping. To see what this means, and why it's intuitively relevant, notice that the unit circle intersects the real numbers at 90 degree angle, just like the imaginary number line. All of the other options, the logarithmic spirals from before, intersect the positive real numbers some other angle.
+
+A conformal mapping is a function which preserves angles from its input to its output. So, if you draw two intersecting lines in the complex plane, the function $f(y)=x^y$ will always project them to a pair of curves which intersect with the same angle.
+
+Thus, the imaginary numbers must get projected to the unit circle, which is the only candidate which intersects the real numbers at 90 degrees; and any other line through $0$ on the complex plane must get projected onto a logarithmic spiral which intersects the real numbers (at 1) with the same angle the original line intersected the real numbers with. 
+
+\subsubsection{complex exponents and choice of base}
+In general, for complex numbers $z$ and $w$ where $w=a+bi$, we have \[z^w=z^{a+bi}=z^az^{bi}=z^a(z^i)^b\]
+
+Notice that if $z$ is a real number, $z^a$ is a real number and $z^{bi}$ has absolute value of 1.
+As a result, $z^a$ gives the magnitude, while $z^{bi}$ determines the rotation, or angle.
+
+Also, now that we know that raising real numbers to complex powers extends us to the complex plane, we can express complex numbers in terms of any real $x$ as being of the form \(x^{a+bi}\), for some real $a$ and $b$.
+
+For a base $z$ where $|z|=1$, we have $|z^a|=1$, meaning $z^a$ gives a pure rotation. 
+For $z^{bi}=i$, we'll need to express $z$ as $x^{c+di}$. Since \(|x^{c+di}|=|z|=1\), and since \(|x^{c+di}|=|x^cx^{di}|=|x^c||x^{di}|=|x^c|\), we have $c=0$, meaning $x=x^{di}$.
+From there, it's we can see that $z^{bi}=(x^{di})^{bi}=x^{dbi^2}=x^{-db}$, which is a real number. Therefore $z^{bi}$ gives only the magnitude.
+
+So to restate that, for a real base, $z^a$ gives the magnitude and $z^{bi}$ gives the rotation, while for a base on the unit circle, $z^a$ gives the rotation and $z^{bi}$ gives the magnitude. 
+
+For any other complex number, both terms give a mix of rotation and magnitude.
+
+We can think of $z^{a+bi}$ as being defined by its position on a grid formed by two sets logarithmic spirals which are perpendicular to each other. One of these sets is of spirals ``parallel'' to $z^y$ for real $y$, and one of them is the set of spirals parallel to $z^{w}$ for imaginary $w$.
+$z^a$ determines the position along the first set of spirals, and $z^{bi}$ the position along the second set.
+
+\section{Conclusion}
+
+So there we have it. Raising a real number to the power of an imaginary number takes us off the real numbers and onto the perpendicular unit circle. If our base is a complex number on the unit circle instead, it takes us back off the unit circle and back onto the positive real numbers.
+
+For any other complex number base, raising to the power of an imaginary number takes us off one logarithmic spiral, which we'd be stuck to with real number exponents, and onto another, perpendicular to the first.
+
+Hopefully this provides a useful intuition for why that works, and what it has to do with repeated multiplication. If not, maybe it at least provides some new insights on some of the unique properties of complex exponents.
+
+Obviously I've left out the question why a conformal map implies $e$ as the base and $\pi$ as a coefficient to $i$ in Euler's formula, but that's a little outside the scope of what I wanted to cover here, and this article is much longer than I'd hoped. 
+
+My main goal, in particular, was to make it intuitive why $e^i$ corresponds to a rotation, not something else, like a slide or a rotation mixed with a stretch.
+
+Euler's formula is one of the most surprising results of mathematics, and one the most fascinating to me personally, so I hope I've succeeded here in demystifying some part of it.
+
+In any case, thanks for reading!
+
+\end{document}  
